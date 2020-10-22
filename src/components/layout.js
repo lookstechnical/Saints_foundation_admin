@@ -6,7 +6,7 @@ import Logo from '../assets/SCDF-logo.png'
 
 import './layout.css'
 import { isLoggedIn, logout } from '../auth/AppUser'
-import { Auth } from 'aws-amplify'
+import Auth from '@aws-amplify/auth'
 
 const Layout = ({ children }) => (
   <StaticQuery

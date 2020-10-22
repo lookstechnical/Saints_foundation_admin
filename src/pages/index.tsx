@@ -1,22 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, navigate } from 'gatsby'
 import Layout from '../components/layout'
-import Amplify from '@aws-amplify/core'
 import { isLoggedIn } from '../auth/AppUser'
+import Amplify from '@aws-amplify/core'
 import config from '../aws-exports'
 
-Amplify.configure(config)
-
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+})
 const IndexPage = () => {
-  if (!isLoggedIn()) {
-    navigate(`/app/login`)
-    return null
-  }
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate(`/app/login`)
+      return null
+    }
 
-  if (isLoggedIn()) {
-    navigate(`/app/home`)
-    return null
-  }
+    if (isLoggedIn()) {
+      navigate(`/app/home`)
+      return null
+    }
+  }, [])
 
   return (
     <Layout>

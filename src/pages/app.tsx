@@ -4,14 +4,18 @@ import Layout from '../components/layout'
 import Login from '../components/Login'
 import Home from '../components/Home'
 import Details from '../components/Details'
-
 import PrivateRoute from '../components/PrivateRoute'
 import Amplify from '@aws-amplify/core'
-const config = require('../aws-exports').default
+import config from '../aws-exports'
+
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+})
 
 const App = () => {
-  Amplify.configure(config)
-
   return (
     <Layout>
       <Router>

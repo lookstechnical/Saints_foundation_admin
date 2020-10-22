@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { navigate } from '@reach/router'
 import { isLoggedIn, setUser } from '../auth/AppUser'
 import { Link } from 'gatsby'
-import { Auth } from 'aws-amplify'
+import Auth from '@aws-amplify/auth'
 
 const Login = ({ path }: { path: string }) => {
   const [password, setPassword] = useState()
@@ -34,10 +34,13 @@ const Login = ({ path }: { path: string }) => {
       console.log(err)
     }
   }
-  if (isLoggedIn()) {
-    navigate('/app/home')
-    return null
-  }
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate('/app/home')
+      return null
+    }
+  }, [])
   return (
     <div>
       <h1>Login</h1>

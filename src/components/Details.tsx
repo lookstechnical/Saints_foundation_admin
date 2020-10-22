@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getCurrentUser } from '../auth/AppUser'
 import { Link } from 'gatsby'
-import { API } from 'aws-amplify'
+import API from '@aws-amplify/api'
 import { listQuestionaires } from '../graphql/queries'
 import { DataGrid } from '@material-ui/data-grid'
 
@@ -19,6 +19,7 @@ const Details = ({ id }) => {
       const items = list?.data.listQuestionaires.items.sort(function(a, b) {
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
+        // @ts-ignore
         return new Date(b.createdAt) - new Date(a.createdAt)
       })
 

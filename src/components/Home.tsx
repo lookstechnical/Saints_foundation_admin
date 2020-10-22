@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, navigate } from 'gatsby'
-import { API, Auth } from 'aws-amplify'
+import Auth from '@aws-amplify/auth'
+import API from '@aws-amplify/api'
 import { DataGrid } from '@material-ui/data-grid'
 
 import './layout.css'
