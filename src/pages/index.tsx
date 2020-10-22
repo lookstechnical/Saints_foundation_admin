@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, navigate } from 'gatsby'
 import Layout from '../components/layout'
-import Amplify from 'aws-amplify'
 import config from '../aws-exports'
 import { isLoggedIn } from '../auth/AppUser'
 
-Amplify.configure({
-  ...config,
-  Analytics: {
-    disabled: true,
-  },
-})
-
 const IndexPage = () => {
+  useEffect(() => {
+    // Have to create a function with async inside of useEffect since it doesn't like async on the root function
+    async function initAmplify() {
+      const Amplify = await import('aws-amplify')
+      Amplify.default.configure({
+        ...config,
+        Analytics: {
+          disabled: true,
+        },
+      })
+      // ...other stuff. I added Amplify.Auth to state here so I could use it for signIn, signOut, etc.
+    }
+    initAmplify()
+  }, [])
+
   if (!isLoggedIn()) {
     navigate(`/app/login`)
     return null
