@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "author": "Nader Dabit <dabit3.@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/data-grid": "^4.0.0-alpha.7",
     "aws-amplify": "^1.0.5",
     "aws-amplify-react": "^1.0.5",
     "gatsby": "^2.20.36",

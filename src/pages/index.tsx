@@ -1,27 +1,33 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import Amplify from 'aws-amplify'
 import config from '../aws-exports'
+import { isLoggedIn } from '../auth/AppUser'
 
-Amplify.configure(config)
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+})
 
-const IndexPage = () => (
-  <Layout>
-    <h1>Hi people</h1>
-    <p>
-      Welcome to your new Gatsby site with multi-user authentication powered by{' '}
-      <a href="https://amplify.aws">AWS Amplify</a>
-    </p>
-    <p>
-      Create a new account: <Link to="/app/signup">Sign Up</Link>
-    </p>
-    <Link to="/app/login">Sign In</Link>
-    <br />
-    <Link to="/app/home">Home</Link>
-    <br />
-    <Link to="/app/details">Your profile</Link>
-  </Layout>
-)
+const IndexPage = () => {
+  if (!isLoggedIn()) {
+    navigate(`/app/login`)
+    return null
+  }
+
+  if (isLoggedIn()) {
+    navigate(`/app/home`)
+    return null
+  }
+
+  return (
+    <Layout>
+      <Link to="/app/login">Sign In</Link>
+    </Layout>
+  )
+}
 
 export default IndexPage

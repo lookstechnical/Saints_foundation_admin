@@ -1,0 +1,14 @@
+{
+    "CreateAPIKey": 0,
+    "AppSyncApiName": "trackandtrace",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authtrackandtracec0712879",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-trackandtrace-dev-210254-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/79b71bcb070bf288fadd48b2199d5d54734bf84e"
+}

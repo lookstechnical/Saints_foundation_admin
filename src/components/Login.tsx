@@ -28,14 +28,14 @@ const Login = ({ path }: { path: string }) => {
         username: user.username,
       }
       setUser(userInfo)
-      navigate('/app/details')
+      navigate('/app/home')
     } catch (err) {
       setError(err)
       console.log(err)
     }
   }
   if (isLoggedIn()) {
-    navigate('/app/details')
+    navigate('/app/home')
     return null
   }
   return (
@@ -63,9 +63,6 @@ const Login = ({ path }: { path: string }) => {
         <br></br>
         <button type="submit">Login</button>
       </form>
-      <p>
-        No account with us yet? <Link to="/app/signup">Register</Link>.
-      </p>
     </div>
   )
 }

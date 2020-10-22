@@ -37,16 +37,11 @@
 					"Statement": [
 						{
 							"Sid": "",
-							"Effect": "Allow",
+							"Effect": "Deny",
 							"Principal": {
 								"Federated": "cognito-identity.amazonaws.com"
 							},
-							"Action": "sts:AssumeRoleWithWebIdentity",
-							"Condition": {
-								"ForAnyValue:StringLike": {
-									"cognito-identity.amazonaws.com:amr": "authenticated"
-								}
-							}
+							"Action": "sts:AssumeRoleWithWebIdentity"
 						}
 					]
 				}
@@ -63,70 +58,45 @@
 					"Statement": [
 						{
 							"Sid": "",
-							"Effect": "Allow",
+							"Effect": "Deny",
 							"Principal": {
 								"Federated": "cognito-identity.amazonaws.com"
 							},
-							"Action": "sts:AssumeRoleWithWebIdentity",
-							"Condition": {
-								"ForAnyValue:StringLike": {
-									"cognito-identity.amazonaws.com:amr": "unauthenticated"
-								}
-							}
+							"Action": "sts:AssumeRoleWithWebIdentity"
 						}
 					]
 				}
 			}
 		},
-		"authcognito704b3e59": {
+		"authtrackandtracec0712879": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/my-aws-project-20190103122546-deployment/amplify-cfn-templates/auth/cognito704b3e59-cloudformation-template.yml",
+				"TemplateURL": "https://s3.amazonaws.com/amplify-trackandtrace-dev-210254-deployment/amplify-cfn-templates/auth/trackandtracec0712879-cloudformation-template.yml",
 				"Parameters": {
-					"identityPoolName": "cognito704b3e59_identitypool_704b3e59",
+					"identityPoolName": "trackandtracec0712879_identitypool_c0712879",
 					"allowUnauthenticatedIdentities": false,
-					"thirdPartyAuth": false,
-					"lambdaLogPolicy": "cognito704b3e59_lambda_log_policy",
-					"openIdLambdaRoleName": "cognito704b3e59_openid_lambda_role",
-					"openIdRolePolicy": "cognito704b3e59_openid_pass_role_policy",
-					"openIdLambdaIAMPolicy": "cognito704b3e59_openid_lambda_iam_policy",
-					"openIdLogPolicy": "cognito704b3e59_openid_lambda_log_policy",
-					"userPoolName": "cognito704b3e59_userpool_704b3e59",
+					"resourceNameTruncated": "trackac0712879",
+					"userPoolName": "trackandtracec0712879_userpool_c0712879",
 					"autoVerifiedAttributes": "email",
 					"mfaConfiguration": "OFF",
 					"mfaTypes": "SMS Text Message",
-					"roleName": "cognito704b3e59_sns-role",
-					"roleExternalId": "cognito704b3e59_role_external_id",
-					"policyName": "cognito704b3e59-sns-policy",
 					"smsAuthenticationMessage": "Your authentication code is {####}",
 					"smsVerificationMessage": "Your verification code is {####}",
 					"emailVerificationSubject": "Your verification code",
 					"emailVerificationMessage": "Your verification code is {####}",
 					"defaultPasswordPolicy": false,
 					"passwordPolicyMinLength": 8,
-					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
+					"passwordPolicyCharacters": "",
 					"requiredAttributes": "email",
-					"userpoolClientName": "cognito704b3e59_app_client",
 					"userpoolClientGenerateSecret": true,
 					"userpoolClientRefreshTokenValidity": 30,
+					"userpoolClientWriteAttributes": "email",
 					"userpoolClientReadAttributes": "email",
-					"mfaLambdaRole": "cognito704b3e59_totp_lambda_role",
-					"mfaLambdaLogPolicy": "cognito704b3e59_totp_lambda_log_policy",
-					"mfaPassRolePolicy": "cognito704b3e59_totp_pass_role_policy",
-					"mfaLambdaIAMPolicy": "cognito704b3e59_totp_lambda_iam_policy",
-					"userpoolClientLambdaRole": "cognito704b3e59_userpoolclient_lambda_role",
-					"userpoolClientLogPolicy": "cognito704b3e59_userpoolclient_lambda_log_policy",
-					"userpoolClientLambdaPolicy": "cognito704b3e59_userpoolclient_lambda_iam_policy",
+					"userpoolClientLambdaRole": "trackac0712879_userpoolclient_lambda_role",
 					"userpoolClientSetAttributes": false,
-					"useDefault": "default",
-					"resourceName": "cognito704b3e59",
+					"sharedId": "c0712879",
+					"resourceName": "trackandtracec0712879",
 					"authSelections": "identityPoolAndUserPool",
-					"authRoleName": {
-						"Ref": "AuthRoleName"
-					},
-					"unauthRoleName": {
-						"Ref": "UnauthRoleName"
-					},
 					"authRoleArn": {
 						"Fn::GetAtt": [
 							"AuthRole",
@@ -139,8 +109,297 @@
 							"Arn"
 						]
 					},
-					"env": "prod"
+					"useDefault": "default",
+					"usernameAttributes": "email",
+					"userPoolGroupList": "",
+					"serviceName": "Cognito",
+					"dependsOn": "",
+					"env": "dev"
 				}
+			}
+		},
+		"authuserPoolGroups": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-trackandtrace-dev-210254-deployment/amplify-cfn-templates/auth/template.json",
+				"Parameters": {
+					"AuthRoleArn": {
+						"Fn::GetAtt": [
+							"AuthRole",
+							"Arn"
+						]
+					},
+					"UnauthRoleArn": {
+						"Fn::GetAtt": [
+							"UnauthRole",
+							"Arn"
+						]
+					},
+					"authtrackandtracec0712879UserPoolId": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.UserPoolId"
+						]
+					},
+					"authtrackandtracec0712879AppClientIDWeb": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.AppClientIDWeb"
+						]
+					},
+					"authtrackandtracec0712879AppClientID": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.AppClientID"
+						]
+					},
+					"authtrackandtracec0712879IdentityPoolId": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.IdentityPoolId"
+						]
+					},
+					"env": "dev"
+				}
+			}
+		},
+		"functionAdminQueries5c3843d8": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-trackandtrace-dev-210254-deployment/amplify-cfn-templates/function/AdminQueries5c3843d8-cloudformation-template.json",
+				"Parameters": {
+					"authtrackandtracec0712879UserPoolId": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.UserPoolId"
+						]
+					},
+					"env": "dev"
+				}
+			}
+		},
+		"apiAdminQueries": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-trackandtrace-dev-210254-deployment/amplify-cfn-templates/api/admin-queries-cloudformation-template.json",
+				"Parameters": {
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"authtrackandtracec0712879UserPoolId": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.UserPoolId"
+						]
+					},
+					"functionAdminQueries5c3843d8Arn": {
+						"Fn::GetAtt": [
+							"functionAdminQueries5c3843d8",
+							"Outputs.Arn"
+						]
+					},
+					"functionAdminQueries5c3843d8Name": {
+						"Fn::GetAtt": [
+							"functionAdminQueries5c3843d8",
+							"Outputs.Name"
+						]
+					},
+					"env": "dev"
+				}
+			}
+		},
+		"apitrackandtrace": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-trackandtrace-dev-210254-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"Parameters": {
+					"CreateAPIKey": 0,
+					"AppSyncApiName": "trackandtrace",
+					"DynamoDBBillingMode": "PAY_PER_REQUEST",
+					"DynamoDBEnableServerSideEncryption": false,
+					"AuthCognitoUserPoolId": {
+						"Fn::GetAtt": [
+							"authtrackandtracec0712879",
+							"Outputs.UserPoolId"
+						]
+					},
+					"S3DeploymentBucket": "amplify-trackandtrace-dev-210254-deployment",
+					"S3DeploymentRootKey": "amplify-appsync-files/79b71bcb070bf288fadd48b2199d5d54734bf84e",
+					"env": "dev"
+				}
+			}
+		},
+		"UpdateRolesWithIDPFunction": {
+			"DependsOn": [
+				"AuthRole",
+				"UnauthRole",
+				"authtrackandtracec0712879"
+			],
+			"Type": "AWS::Lambda::Function",
+			"Properties": {
+				"Code": {
+					"ZipFile": {
+						"Fn::Join": [
+							"\n",
+							[
+								"const response = require('cfn-response');",
+								"const aws = require('aws-sdk');",
+								"let responseData = {};",
+								"exports.handler = function(event, context) {",
+								"  try {",
+								"    let authRoleName = event.ResourceProperties.authRoleName;",
+								"    let unauthRoleName = event.ResourceProperties.unauthRoleName;",
+								"    let idpId = event.ResourceProperties.idpId;",
+								"    let promises = [];",
+								"    let authParamsJson = { 'Version': '2012-10-17','Statement': [{'Effect': 'Allow','Principal': {'Federated': 'cognito-identity.amazonaws.com'},'Action': 'sts:AssumeRoleWithWebIdentity','Condition': {'StringEquals': {'cognito-identity.amazonaws.com:aud': idpId},'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr': 'authenticated'}}}]};",
+								"    let unauthParamsJson = { 'Version': '2012-10-17','Statement': [{'Effect': 'Allow','Principal': {'Federated': 'cognito-identity.amazonaws.com'},'Action': 'sts:AssumeRoleWithWebIdentity','Condition': {'StringEquals': {'cognito-identity.amazonaws.com:aud': idpId},'ForAnyValue:StringLike': {'cognito-identity.amazonaws.com:amr': 'unauthenticated'}}}]};",
+								"    if (event.RequestType == 'Delete') {",
+								"        delete authParamsJson.Statement[0].Condition;",
+								"        delete unauthParamsJson.Statement[0].Condition;",
+								"        let authParams = { PolicyDocument: JSON.stringify(authParamsJson),RoleName: authRoleName};",
+								"        let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),RoleName: unauthRoleName};",
+								"        const iam = new aws.IAM({ apiVersion: '2010-05-08', region: event.ResourceProperties.region});",
+								"        promises.push(iam.updateAssumeRolePolicy(authParams).promise());",
+								"        promises.push(iam.updateAssumeRolePolicy(unauthParams).promise());",
+								"        Promise.all(promises)",
+								"         .then((res) => {",
+								"            console.log(\"delete response data\" + JSON.stringify(res));",
+								"            response.send(event, context, response.SUCCESS, {});",
+								"         });",
+								"    }",
+								"    if (event.RequestType == 'Update' || event.RequestType == 'Create') {",
+								"       const iam = new aws.IAM({ apiVersion: '2010-05-08', region: event.ResourceProperties.region});",
+								"        let authParams = { PolicyDocument: JSON.stringify(authParamsJson),RoleName: authRoleName};",
+								"        let unauthParams = {PolicyDocument: JSON.stringify(unauthParamsJson),RoleName: unauthRoleName};",
+								"        promises.push(iam.updateAssumeRolePolicy(authParams).promise());",
+								"        promises.push(iam.updateAssumeRolePolicy(unauthParams).promise());",
+								"        Promise.all(promises)",
+								"         .then((res) => {",
+								"            console.log(\"createORupdate\" + res);",
+								"            console.log(\"response data\" + JSON.stringify(res));",
+								"            response.send(event, context, response.SUCCESS, {});",
+								"         });",
+								"    }",
+								"  } catch(err) {",
+								"       console.log(err.stack);",
+								"       responseData = {Error: err};",
+								"       response.send(event, context, response.FAILED, responseData);",
+								"       throw err;",
+								"  }",
+								"};"
+							]
+						]
+					}
+				},
+				"Handler": "index.handler",
+				"Runtime": "nodejs10.x",
+				"Timeout": "300",
+				"Role": {
+					"Fn::GetAtt": [
+						"UpdateRolesWithIDPFunctionRole",
+						"Arn"
+					]
+				}
+			}
+		},
+		"UpdateRolesWithIDPFunctionOutputs": {
+			"Type": "Custom::LambdaCallout",
+			"Properties": {
+				"ServiceToken": {
+					"Fn::GetAtt": [
+						"UpdateRolesWithIDPFunction",
+						"Arn"
+					]
+				},
+				"region": {
+					"Ref": "AWS::Region"
+				},
+				"idpId": {
+					"Fn::GetAtt": [
+						"authtrackandtracec0712879",
+						"Outputs.IdentityPoolId"
+					]
+				},
+				"authRoleName": {
+					"Ref": "AuthRoleName"
+				},
+				"unauthRoleName": {
+					"Ref": "UnauthRoleName"
+				}
+			}
+		},
+		"UpdateRolesWithIDPFunctionRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": {
+					"Fn::Join": [
+						"",
+						[
+							{
+								"Ref": "AuthRoleName"
+							},
+							"-idp"
+						]
+					]
+				},
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": [
+									"lambda.amazonaws.com"
+								]
+							},
+							"Action": [
+								"sts:AssumeRole"
+							]
+						}
+					]
+				},
+				"Policies": [
+					{
+						"PolicyName": "UpdateRolesWithIDPFunctionPolicy",
+						"PolicyDocument": {
+							"Version": "2012-10-17",
+							"Statement": [
+								{
+									"Effect": "Allow",
+									"Action": [
+										"logs:CreateLogGroup",
+										"logs:CreateLogStream",
+										"logs:PutLogEvents"
+									],
+									"Resource": "arn:aws:logs:*:*:*"
+								},
+								{
+									"Effect": "Allow",
+									"Action": "iam:UpdateAssumeRolePolicy",
+									"Resource": {
+										"Fn::GetAtt": [
+											"AuthRole",
+											"Arn"
+										]
+									}
+								},
+								{
+									"Effect": "Allow",
+									"Action": "iam:UpdateAssumeRolePolicy",
+									"Resource": {
+										"Fn::GetAtt": [
+											"UnauthRole",
+											"Arn"
+										]
+									}
+								}
+							]
+						}
+					}
+				]
 			}
 		}
 	},

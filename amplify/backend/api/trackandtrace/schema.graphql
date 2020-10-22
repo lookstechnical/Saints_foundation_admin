@@ -1,0 +1,11 @@
+type Question {
+  label: String
+  answer: Boolean
+}
+
+type Questionaire @model {
+  id: ID!
+  name: String!
+  questions: [Question]
+  owner: String!
+}
