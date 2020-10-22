@@ -5,6 +5,7 @@ import Login from '../components/Login'
 import Home from '../components/Home'
 import PrivateRoute from '../components/PrivateRoute'
 import Amplify from 'aws-amplify'
+import Details from '../components/Details'
 const config = require('../aws-exports').default
 
 const App = () => {
@@ -14,6 +15,8 @@ const App = () => {
     <Layout>
       <Router>
         <PrivateRoute path="/app/home" component={Home} />
+        <PrivateRoute path="/app/details/:id" component={Details} />
+
         <Login path="/app/login" />
       </Router>
     </Layout>

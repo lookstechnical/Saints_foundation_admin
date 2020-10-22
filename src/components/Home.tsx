@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import { API, Auth } from 'aws-amplify'
 import { DataGrid } from '@material-ui/data-grid'
 
@@ -46,6 +46,12 @@ const Home = () => {
     >
       <div style={{ flexGrow: 1 }}>
         <DataGrid
+          onSelectionChange={newSelection => {
+            if (newSelection.rows[0]) {
+              const id = newSelection.rows[0].id
+              navigate(`/app/details/${id}`)
+            }
+          }}
           pageSize={50}
           columns={[
             {
