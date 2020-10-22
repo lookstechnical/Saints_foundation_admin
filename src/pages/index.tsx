@@ -2,16 +2,12 @@ import React from 'react'
 import { Link, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import Amplify from 'aws-amplify'
-import config from '../aws-exports'
 import { isLoggedIn } from '../auth/AppUser'
 
+const config = require('../aws-exports').default
+
 const IndexPage = () => {
-  Amplify.configure({
-    ...config,
-    Analytics: {
-      disabled: true,
-    },
-  })
+  Amplify.configure(config)
 
   if (!isLoggedIn()) {
     navigate(`/app/login`)
