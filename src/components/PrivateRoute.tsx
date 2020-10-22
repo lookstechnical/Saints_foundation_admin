@@ -11,7 +11,7 @@ const PrivateRoute = (props: PrivateRouteProps) => {
   const { component: Component, ...rest } = props
 
   if (!isLoggedIn()) {
-    navigate(`/login`)
+    navigate(`/app/login`)
     return null
   }
   return <Component {...rest} />
