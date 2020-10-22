@@ -6,7 +6,7 @@ import Home from '../components/Home'
 import Details from '../components/Details'
 
 import PrivateRoute from '../components/PrivateRoute'
-import Amplify from 'aws-amplify'
+import Amplify from '@aws-amplify/core'
 const config = require('../aws-exports').default
 
 const App = () => {
