@@ -31,7 +31,6 @@ const Login = ({ path }: { path: string }) => {
       navigate('/app/home')
     } catch (err) {
       setError(err)
-      console.log(err)
     }
   }
 

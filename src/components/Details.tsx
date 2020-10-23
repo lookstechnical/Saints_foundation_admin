@@ -35,8 +35,6 @@ const Details = ({ id }) => {
       }))
     : []
 
-  console.log(questionaire, 'questions')
-
   return (
     <>
       <div
@@ -64,7 +62,6 @@ const Details = ({ id }) => {
                   width: 300,
                   cellClassRules: {
                     covid_clear: params => {
-                      console.log(params, 'params')
                       return !params.data.answer
                     },
                     covid_error: params => {
