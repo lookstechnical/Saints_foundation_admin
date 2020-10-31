@@ -36,12 +36,13 @@ const Login = ({ path }: { path: string }) => {
 
   useEffect(() => {
     if (isLoggedIn()) {
-      navigate('/app/home')
-      return null
+      setTimeout(() => {
+        navigate('/app/home')
+      }, 1)
     }
   }, [])
   return (
-    <div>
+    <div className="centered-page">
       <h1>Login</h1>
       {error && <p>{error.message}</p>}
       <form onSubmit={login}>

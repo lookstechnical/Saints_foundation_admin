@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import { isLoggedIn } from '../auth/AppUser'
 import Amplify from '@aws-amplify/core'
 import config from '../aws-exports'
+import Login from '../components/Login'
 
 Amplify.configure({
   ...config,
@@ -12,20 +13,9 @@ Amplify.configure({
   },
 })
 const IndexPage = () => {
-  useEffect(() => {
-    if (!isLoggedIn()) {
-      navigate(`/app/login`)
-      return null
-    }
-
-    if (isLoggedIn()) {
-      navigate(`/app/home`)
-      return null
-    }
-  }, [])
-
   return (
     <Layout>
+      <Login path="/" />
       <Link to="/app/login">Sign In</Link>
     </Layout>
   )

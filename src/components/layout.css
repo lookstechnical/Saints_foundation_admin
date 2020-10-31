@@ -1,3 +1,7 @@
+body {
+  font-family: Helvetica;
+}
+
 .covid_clear {
   background: green;
   color: white;
@@ -11,4 +15,25 @@
 .covid_error {
   background: red;
   color: white;
+}
+
+input {
+  font-size: 16px;
+  padding: 10px;
+}
+
+button {
+  appearance: none;
+  font-size: 16px;
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px;
+}
+
+.centered-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
