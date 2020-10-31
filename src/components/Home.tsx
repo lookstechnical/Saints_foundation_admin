@@ -13,10 +13,13 @@ const Home = () => {
       let apiName = 'AdminQueries'
       let path = '/listUsers'
       let myInit = {
-        // queryStringParameters: {
-        //   limit: limit,
-        //   token: nextToken,
-        // },
+        queryStringParameters: {
+          //   limit: limit,
+          //   token: nextToken,
+          filter: {
+            status: 'CONFIRMED',
+          },
+        },
         headers: {
           'Content-Type': 'application/json',
           Authorization: `${(await Auth.currentSession())
@@ -81,27 +84,14 @@ const Home = () => {
                 return `${email?.Value}`
               },
             },
-            // {
-            //   field: 'reg',
-            //   headerName: 'Reg',
-            //   width: 200,
-            //   valueGetter: params => {
-            //     const status = params.data.Attributes.find(
-            //       a => a.Name === 'custom:reg_status'
-            //     )
-
-            //     return `${status?.Value}`
-            //   },
-            // },
             {
               field: 'DateUpdated',
               headerName: 'Date Updated',
               type: 'datetime',
               width: 300,
               valueGetter: params => {
-                const date = params.data.UserLastModifiedDate
-
-                return `${date}`
+                const updated = new Date(params.data.UserLastModifiedDate)
+                return `${updated.toLocaleDateString()}`
               },
             },
             {
